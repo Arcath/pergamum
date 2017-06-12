@@ -4,7 +4,8 @@
   "description": "JSON database folder supporting multiple connections",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests"
+    "test": "mocha tests",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
     "nosql",
@@ -20,7 +21,10 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "coveralls": "^2.13.1",
     "mocha": "^3.4.2",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.0.2",
     "rimraf": "^2.6.1"
   }
 }

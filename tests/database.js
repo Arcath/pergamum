@@ -81,8 +81,65 @@ describe('Database', function(){
     })
   })
 
+  it('should find one record', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.findOne('test', {name: 'foo'}, function(result){
+          expect(result.name).to.equal('foo')
+          done()
+        })
+      }
+    })
+  })
+
+  it('should find all records', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.all('test', function(results){
+          expect(results.length).to.equal(1)
+
+          done()
+        })
+      }
+    })
+  })
+
+  it('should find unique records', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.unique('test', 'name', function(results){
+          expect(results.length).to.equal(1)
+
+          done()
+        })
+      }
+    })
+  })
+
+  it('should give access to the underlying SODB', function(){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        var sodb = db.store('test')
+
+        expect(sodb.lastInsertId).to.equal(1)
+      }
+    })
+  })
+
   describe('Locking', function(){
-    it('should not add and entry untill the database unlocks', function(done){
+    it('should not add an entry untill the database unlocks', function(done){
       db = new Pergamum({
         dir: path.join(__dirname, 'dbs', 'test'),
         callback: function(){

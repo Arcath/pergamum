@@ -1,2 +1,3 @@
 tests/dbs
 node_modules/
+.nyc_output/
