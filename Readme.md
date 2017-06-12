@@ -1,5 +1,7 @@
 # Pergamum
 
+[![Build Status](https://travis-ci.org/Arcath/pergamum.svg?branch=master)](https://travis-ci.org/Arcath/pergamum)
+
 JSON _database_ through the use of [SODB](https://github.com/Arcath/sodb) and file watchers.
 
 ## Install
