@@ -1,0 +1,26 @@
+{
+  "name": "pergamum",
+  "version": "0.0.0",
+  "description": "JSON database folder supporting multiple connections",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "keywords": [
+    "nosql",
+    "database",
+    "json"
+  ],
+  "author": "Adam Laycock",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^1.7.0",
+    "mkdirp": "^0.5.1",
+    "sodb": "^1.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "rimraf": "^2.6.1"
+  }
+}
