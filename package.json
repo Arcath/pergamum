@@ -4,7 +4,7 @@
   "description": "JSON database folder supporting multiple connections",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests",
+    "test": "nyc --reporter=html --reporter=text mocha tests",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [

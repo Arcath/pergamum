@@ -1,6 +1,6 @@
 # Pergamum
 
-[![Build Status](https://travis-ci.org/Arcath/pergamum.svg?branch=master)](https://travis-ci.org/Arcath/pergamum)
+[![Build Status](https://travis-ci.org/Arcath/pergamum.svg?branch=master)](https://travis-ci.org/Arcath/pergamum) [![Coverage Status](https://coveralls.io/repos/github/Arcath/pergamum/badge.svg?branch=master)](https://coveralls.io/github/Arcath/pergamum?branch=master)
 
 JSON _database_ through the use of [SODB](https://github.com/Arcath/sodb) and file watchers.
 
