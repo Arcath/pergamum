@@ -125,7 +125,21 @@ describe('Database', function(){
     })
   })
 
-  it('should give access to the underlying SODB', function(){
+  it('should order results', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.order('test', {name: 'foo'}, 'name', function(results){
+          expect(results.length).to.equal(1)
+          done()
+        })
+      }
+    })
+  })
+
+  it('should give access to the underlying SODB', function(done){
     db = new Pergamum({
       dir: path.join(__dirname, 'dbs', 'test'),
       callback: function(){
@@ -133,7 +147,49 @@ describe('Database', function(){
 
         var sodb = db.store('test')
 
-        expect(sodb.lastInsertId).to.equal(1)
+        expect(sodb.lastInsertId).to.equal(0)
+        done()
+      }
+    })
+  })
+
+  it('should update data', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.findOne('test', {name: 'foo'}, function(result){
+          expect(result.name).to.equal('foo')
+          expect(result.changed()).to.equal(false)
+
+          result.name = 'fooo'
+
+          expect(result.changed()).to.equal(true)
+
+          db.update('test', result, function(){
+            done()
+          })
+        })
+      }
+    })
+  })
+
+  it('should remove data', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.addEntry('test', {name:'rem', age: 10}, function(record){
+          expect(db.stores.test.count()).to.equal(2)
+
+          db.remove('test', record, function(){
+            expect(db.stores.test.count()).to.equal(1)
+
+            done()
+          })
+        })
       }
     })
   })
