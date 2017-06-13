@@ -67,6 +67,19 @@ describe('Database', function(){
     })
   })
 
+  it('should create a second store', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        db.createStore('config', function(){
+          db.addEntry('config', {key: 'foo', value: 'bar'}, function(){
+            done()
+          })
+        })
+      }
+    })
+  })
+
   it('should have saved the record to the database', function(done){
     db = new Pergamum({
       dir: path.join(__dirname, 'dbs', 'test'),
@@ -244,8 +257,9 @@ describe('Database', function(){
 
               db2.addEntry('test', {name: 'widget', age: 30}, function(){
                 expect(db2.stores.test.count()).to.equal(3)
+                expect(db1.stores.test.count()).to.equal(2)
 
-                db1.emitter.once('unlock', function(){
+                db1.emitter.once('updated-test', function(){
                   expect(db1.stores.test.count()).to.equal(3)
 
                   done()
