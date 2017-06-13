@@ -188,6 +188,28 @@ describe('Database', function(){
     })
   })
 
+  it('should not trigger a data-sync if update is not needed', function(done){
+    db = new Pergamum({
+      dir: path.join(__dirname, 'dbs', 'test'),
+      callback: function(){
+        expect(db.stores.test.count()).to.equal(1)
+
+        db.findOne('test', {name: 'fooo'}, function(result){
+          expect(result.name).to.equal('fooo')
+          expect(result.changed()).to.equal(false)
+
+          db.emitter.once('disk-sync', function(){
+            throw new Error("test failed")
+          })
+
+          db.update('test', result, function(){
+            done()
+          })
+        })
+      }
+    })
+  })
+
   it('should remove data', function(done){
     db = new Pergamum({
       dir: path.join(__dirname, 'dbs', 'test'),
